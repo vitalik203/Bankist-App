@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bankist App</title>
+    <link rel="stylesheet" href="styles/style.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="prelogin__block">
+        <button class="btn__reg">Sign up</button>
+        <button class="btn__log">Sign in</button>
+      </div>
+      <div class="sighUp-block hidden" style="margin: 0 auto">
+        <form action="">
+          <fieldset
+            style="
+              display: flex;
+              flex-direction: column;
+              width: 500px;
+              height: auto;
+              margin: 0 auto;
+            "
+          >
+            <label for="login__input"
+              >Your login: <input type="text" class="login__input"
+            /></label>
+            <label for="password__input"
+              >Your password: <input type="password" class="password__input"
+            /></label>
+            <label for="repeatPassword__input"
+              >Repeat your password:
+              <input type="password" class="repeatPassword__input"
+            /></label>
+            <button type="button" class="btn__reg-submit">Sign Up!</button>
+          </fieldset>
+        </form>
+      </div>
+      <div class="signIn-block hidden">
+        <form action="">
+          <fieldset
+            style="
+              display: flex;
+              flex-direction: column;
+              width: 500px;
+              height: auto;
+              margin: 0 auto;
+            "
+          >
+            <label for="login__input"
+              >Your login: <input type="text" class="login__input"
+            /></label>
+            <label for="password__input"
+              >Your password: <input type="password" class="password__input"
+            /></label>
+            <button type="button" class="btn__log-submit">Sign In!</button>
+          </fieldset>
+        </form>
+      </div>
+      <div class="afterlogin__block"></div>
+    </div>
+    <script src="js/script.js"></script>
+  </body>
+</html>
