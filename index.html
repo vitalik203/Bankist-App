@@ -11,6 +11,7 @@
       <div class="prelogin__block">
         <button class="btn__reg">Sign up</button>
         <button class="btn__log">Sign in</button>
+        <button class="btn__logOut hidden">Log out</button>
       </div>
       <div class="sighUp-block hidden" style="margin: 0 auto">
         <form action="">
@@ -23,15 +24,15 @@
               margin: 0 auto;
             "
           >
-            <label for="login__input"
-              >Your login: <input type="text" class="login__input"
+            <label for="loginReg__input"
+              >Your login: <input type="text" class="loginReg__input"
             /></label>
-            <label for="password__input"
-              >Your password: <input type="password" class="password__input"
+            <label for="passwordReg__input"
+              >Your password: <input type="password" class="passwordReg__input"
             /></label>
-            <label for="repeatPassword__input"
+            <label for="repeatPasswordReg__input"
               >Repeat your password:
-              <input type="password" class="repeatPassword__input"
+              <input type="password" class="repeatPasswordReg__input"
             /></label>
             <button type="button" class="btn__reg-submit">Sign Up!</button>
           </fieldset>
@@ -48,17 +49,28 @@
               margin: 0 auto;
             "
           >
-            <label for="login__input"
-              >Your login: <input type="text" class="login__input"
+            <label for="loginLog__input"
+              >Your login: <input type="text" class="loginLog__input"
             /></label>
-            <label for="password__input"
-              >Your password: <input type="password" class="password__input"
+            <label for="passwordLog__input"
+              >Your password: <input type="password" class="passwordLog__input"
             /></label>
             <button type="button" class="btn__log-submit">Sign In!</button>
           </fieldset>
         </form>
       </div>
-      <div class="afterlogin__block"></div>
+      <div class="afterlogin__block">
+        <div class="main__name"></div>
+        <div class="current__balance"></div>
+        <div class="borrow__box">
+          <button class="borrow__money">Borrow money</button>
+          <input
+            type="number"
+            placeholder="Put ammount..."
+            class="borrow__money-input"
+          />
+        </div>
+      </div>
     </div>
     <script src="js/script.js"></script>
   </body>
