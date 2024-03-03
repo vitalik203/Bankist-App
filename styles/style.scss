@@ -7,3 +7,9 @@
 .hidden {
   display: none;
 }
+
+.transaction__box {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+}
