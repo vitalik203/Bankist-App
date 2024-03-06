@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", (e) => {
   const borrowBox = document.querySelector(".borrow__box");
   let currentBalance = 0;
   const borrowBtn = document.querySelector(".borrow__money");
-
   const tranzactionBox = document.querySelector(".transaction__box");
   let displayedBalance;
   let regOperatingData = {};
@@ -76,7 +75,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
     if (document.querySelector(".borrow__money-input").value === "") {
       alert("Введіть суму більше за 0");
     } else {
-      //Тут про баланс
+      // Тут про баланс
       currentBalance = localStorage.getItem(current__index.balance);
       let valueFromInputBorrow = document.querySelector(
         ".borrow__money-input"
@@ -94,7 +93,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
       let modifiedBalance = JSON.stringify(balancee);
       localStorage.setItem(current__index, modifiedBalance);
 
-      //Тут про транзакції
+      // Тут про транзакції
       console.log(current__index);
       const dataBorrow = new Date();
       let contentOfTransaction = `Time of transaction: ${
@@ -118,17 +117,19 @@ document.addEventListener("DOMContentLoaded", (e) => {
           ? "0" + (dataBorrow.getMonth() + 1)
           : dataBorrow.getMonth() + 1
       }.${dataBorrow.getFullYear()} <br> Amount: $${valueFromInputBorrow}`;
-      let transactionsArr = JSON.parse(localStorage.getItem(current__index));
+      let currentLoginn = localStorage.getItem("current-login");
+
+      let transactionsArr = JSON.parse(localStorage.getItem(currentLoginn));
       transactionsArr.transactions.push(contentOfTransaction);
-      localStorage.setItem(current__index, JSON.stringify(transactionsArr));
-      let transactionsData = JSON.parse(localStorage.getItem(current__index));
+      localStorage.setItem(currentLoginn, JSON.stringify(transactionsArr));
+      let transactionsData = JSON.parse(localStorage.getItem(currentLoginn));
       let newElementOfTransactions = "";
       for (let i = 0; i < transactionsData.transactions.length; i++) {
         newElementOfTransactions += `<div>${transactionsData.transactions[i]}</div>`;
       }
       tranzactionBox.innerHTML = newElementOfTransactions;
     }
-  });
+  }); // Додайте закриваючу круглу дужку тут
 
   submitLog.addEventListener("click", function () {
     let logged = false;
@@ -146,6 +147,10 @@ document.addEventListener("DOMContentLoaded", (e) => {
       logged = true;
     }
     if (logged) {
+      let currentUser = {
+        currentLogin: "0",
+      };
+      localStorage.setItem("1", JSON.stringify(currentUser));
       setTimeout(() => {
         document.querySelector(".sighUp-block").classList.add("hidden");
         document.querySelector(".signIn-block").classList.add("hidden");
@@ -153,6 +158,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
         btnLog.classList.add("hidden");
         btnLogOut.classList.remove("hidden");
         afterlogin__block.classList.remove("hidden");
+        document.querySelector(".send__money").classList.remove("hidden");
         document.querySelector(
           ".main__name"
         ).innerHTML = `<h1>Hello, dear ${login}!!!</h1>`;
@@ -165,7 +171,13 @@ document.addEventListener("DOMContentLoaded", (e) => {
         ).innerHTML = `<h2>Current balance: $${displayedBalance.balance}</h2>`;
         console.log(login.balance);
         document.querySelector(".borrow__money-input").textContent = "";
-        let transactionsData = JSON.parse(localStorage.getItem(current__index));
+        localStorage.setItem("current-login", JSON.stringify(login));
+        let current_login = localStorage.getItem("current-login");
+        if (current_login !== login) {
+          current_login = login;
+          localStorage.setItem("current-login", current_login);
+        }
+        let transactionsData = JSON.parse(localStorage.getItem(current_login));
         let newElementOfTransactions = "";
         for (let i = 0; i < transactionsData.transactions.length; i++) {
           newElementOfTransactions += `<div>${transactionsData.transactions[i]}</div>`;
@@ -183,3 +195,81 @@ document.addEventListener("DOMContentLoaded", (e) => {
     borrowBox.classList.add("hidden");
   });
 });
+
+document
+  .querySelector(".send__money-btn")
+  .addEventListener("click", function () {
+    let nameSendInput = document.querySelector(".name-input").value;
+    let sendMoneyInputValue = Number(
+      document.querySelector(".send__money-input").value
+    );
+    let userObject = JSON.parse(localStorage.getItem(nameSendInput));
+    const dataBorrow = new Date();
+    let current_login = localStorage.getItem("current-login");
+    if (userObject !== null) {
+      let contentOfTransaction = `Time of transaction: ${
+        dataBorrow.getHours() < 10
+          ? "0" + dataBorrow.getHours()
+          : dataBorrow.getHours()
+      }:${
+        dataBorrow.getMinutes() < 10
+          ? "0" + dataBorrow.getMinutes()
+          : dataBorrow.getMinutes()
+      }:${
+        dataBorrow.getSeconds() < 10
+          ? "0" + dataBorrow.getSeconds()
+          : dataBorrow.getSeconds()
+      }  ${
+        dataBorrow.getDate() < 10
+          ? "0" + dataBorrow.getDate()
+          : dataBorrow.getDate()
+      }.${
+        dataBorrow.getMonth() + 1 < 10
+          ? "0" + (dataBorrow.getMonth() + 1)
+          : dataBorrow.getMonth() + 1
+      }.${dataBorrow.getFullYear()} <br> Inbox amount: $${sendMoneyInputValue} from ${current_login}`;
+      userObject.balance += sendMoneyInputValue;
+      userObject.transactions.push(contentOfTransaction);
+      localStorage.setItem(nameSendInput, JSON.stringify(userObject));
+      document.querySelector(".name-input").textContent = "";
+      document.querySelector(".send__money-input").textContent = "";
+    }
+    contentOfTransaction = `Time of transaction: ${
+      dataBorrow.getHours() < 10
+        ? "0" + dataBorrow.getHours()
+        : dataBorrow.getHours()
+    }:${
+      dataBorrow.getMinutes() < 10
+        ? "0" + dataBorrow.getMinutes()
+        : dataBorrow.getMinutes()
+    }:${
+      dataBorrow.getSeconds() < 10
+        ? "0" + dataBorrow.getSeconds()
+        : dataBorrow.getSeconds()
+    }  ${
+      dataBorrow.getDate() < 10
+        ? "0" + dataBorrow.getDate()
+        : dataBorrow.getDate()
+    }.${
+      dataBorrow.getMonth() + 1 < 10
+        ? "0" + (dataBorrow.getMonth() + 1)
+        : dataBorrow.getMonth() + 1
+    }.${dataBorrow.getFullYear()} <br> Amount to somebody: -$${sendMoneyInputValue} to ${nameSendInput}`;
+    transactionsArr = JSON.parse(localStorage.getItem(current_login));
+    transactionsArr.balance -= sendMoneyInputValue;
+    localStorage.setItem(current_login, JSON.stringify(transactionsArr));
+    displayedBalance = localStorage.getItem(current_login);
+    displayedBalance = JSON.parse(displayedBalance);
+    document.querySelector(
+      ".current__balance"
+    ).innerHTML = `<h2>Current balance: $${displayedBalance.balance}</h2>`;
+    transactionsArr.transactions.push(contentOfTransaction);
+    localStorage.setItem(current_login, JSON.stringify(transactionsArr));
+    let transactionsData = JSON.parse(localStorage.getItem(current_login));
+    let newElementOfTransactions = "";
+    for (let i = 0; i < transactionsData.transactions.length; i++) {
+      newElementOfTransactions += `<div>${transactionsData.transactions[i]}</div>`;
+    }
+    document.querySelector(".transaction__box").innerHTML =
+      newElementOfTransactions;
+  });
